@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminXpress</title>
+    <link rel="stylesheet" href="/VistaUusuario/sesionesti.css">
+
+</head>
+
+<body>
+     <div class="left-halfe">
+        <div class="logo">
+             <div class="logo-icon">
+                <img src="LogoLogin.png" alt="">
+
+            </div>
+</body>
+
+
+<body>
+    <div class="login-container">
+        <h1 class="welcome-title">Bienvenido</h1>
+        <p class="subtitle">Inicia sesión según tu usuario</p>
+        
+        <div class="button-group">
+            <a href="../sesioncajero.html"><button class="login-button" onclick="handleLogin('cajero')">Cajero</button></a>
+            <a href="../sesionadmin.html"><button class="login-button admin-button" onclick="handleLogin('administrador')">Administrador</button></a>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(userType) {
+            console.log(`Iniciando sesión como: ${userType}`);
+            
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Cargando...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

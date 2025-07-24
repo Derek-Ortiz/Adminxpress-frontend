@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminXpress - Sistema POS</title>
+    <link rel="stylesheet" href="estil.css">
+    <script src="scriptV.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="./iconos/qfes-30.png" alt="logo">
+            </div>
+            <span> AdminXpress </span>
+        </div>
+
+       <div class="logout-container">
+            <button class="logout-btn" onclick="cerrarSesion()">
+                Cerrar sesión
+            </button>
+        </div>
+    </nav>
+
+
+    <div class="contenedor-categoria">
+        <button class="buttons-categoria">
+            <div class="icono-categoria">
+                <img class="categoria img" src="./iconos/Vector (1).svg" alt="Snack" />
+                <div class="nombre-categoria">SNACK</div>
+            </div>
+        </button>
+        
+        <button class="buttons-categoria">
+            <div class="icono-categoria">
+                <img class="categoria img" src="./iconos/Vector (2).svg" alt="Alimentos" />
+                <div class="nombre-categoria">ALIMENTOS</div>
+            </div>
+        </button>
+        
+        <button class="buttons-categoria">
+            <div class="icono-categoria">
+                <img class="categoria img" src="./iconos/Frame 6.svg" alt="Bebidas" />
+                <div class="nombre-categoria">BEBIDAS</div>
+            </div>
+        </button>
+    </div>
+    
+    
+
+
+    <div class="contenido-principal">
+        <!-- Sección del catálogo (lado izquierdo) -->
+        <div class="seccion-catalogo">
+            <section id="catalogo" class="catalogo">
+                <div class="producto">
+                    
+                </div>
+
+            </section>
+        </div>
+
+        <!-- Sección de detalles de la orden (lado derecho) -->
+        <div class="detalles-orden">
+            <div class="detalles-header">
+                <div>
+                    <h3 id="tituloOrden">Detalles orden</h3>
+                    <div class="fecha-hora" id="fechaPedido"></div>
+                </div>
+                <button class="cerrar-btn" onclick="cerrarDetalles()">✕</button>
+            </div>
+
+            <div class="lista-productos" id="lista-productos">
+
+            </div>
+
+            <div class="total-section">
+                <div class="total">
+                    <span>Total</span>
+                    <span id="total-precio"></span>
+                </div>
+            </div>
+
+            <div class="contenedor-detalle">
+            <div class="botones-accion">
+                <div class="fila-botones">
+                <button class="btn-cancelar" onclick="cancelarOrden()">Cancelar</button>
+                <button class="btn-aceptar" onclick="aceptarOrden()">Aceptar</button>
+                </div>
+                <button class="btn-imprimir">Aceptar e imprimir ticket</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ventana-ordenes">
+        <div class="header">
+            <div class="btn-cerrar" onclick="cerrarVentana()">✕</div>
+            <div class="titulo">Órdenes pendientes</div>
+            <div class="orden-fecha" id="fechaPedido"></div>
+            <button class="btn-agregar" onclick="agregarOrden()">Agregar</button>
+        </div>
+        
+        <div class="contenido">
+            <div class="orden-item">
+                <div class="orden-codigo">ORD002</div>
+                <div class="orden-info">
+                    <div class="orden-fecha">6/22/205</div>
+                    <div class="orden-hora">11:07 PM</div>
+                </div>
+            </div>
+            
+            <div class="orden-item">
+                <div class="orden-codigo">ORD010</div>
+                <div class="orden-info">
+                    <div class="orden-fecha">6/22/205</div>
+                    <div class="orden-hora">11:23 PM</div>
+                </div>
+            </div>
+            
+            <div class="orden-item">
+                <div class="orden-codigo">ORD010</div>
+                <div class="orden-info">
+                    <div class="orden-fecha">6/22/205</div>
+                    <div class="orden-hora">11:23 PM</div>
+                </div>
+            </div>
+        </div>
+        <button class="btn-historial" onclick="mostrarHistorial()">Ordenes completadas</button>
+
+    </div>
+
+    <!-- Modal de Historial de Ventas -->
+<div id="modalHistorial" class="modal-historial" style="display: none;">
+  <div class="modal-contenido">
+    <div class="frame-title">Órdenes completadas</div>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+              <tr class="header-row">
+                  <td>id pedido</td>
+                  <td>descripción</td>
+                  <td>total</td>
+                  <td>fecha</td>
+                  <td>id usuario</td>
+              </tr>
+            </thead>
+            <tbody id="tbodyHistorial">
+              <!-- Aquí se insertan dinámicamente las filas -->
+            </tbody>
+        </table>
+    </div>
+    <button class="cancelarVenta-btn"  onclick="cancelarVenta()"></button>
+    <button class="cerrar-btn cerrar-historial-btn" style="margin-top: 15px;">Cerrar</button>
+  </div>
+</div>
+
+</div>
+
+
+
+
+
+</body>
+</html>
