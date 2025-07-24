@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminXpress</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+   <nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <img src="/HTML/Imagenes/purologito.svg" alt="logo">
+      </div>
+      <span>AdminXpress</span>
+    </div>
+    <div class="tabs-container">
+        <a href="/Ventas/ind3..html">
+      <div class="tab-svg-inline">
+        <svg width="207" height="57" viewBox="0 0 207 57" fill="none">
+          <path d="M12.6502 5.94966C14.0433 1.9203 17.8379 -0.782715 22.1013 -0.782715H183.738C188.056 -0.782715 191.886 1.98855 193.236 6.0897L205.677 43.8725C207.807 50.341 202.989 57 196.179 57H9.03823C2.16578 57 -2.65849 50.2276 -0.412837 43.7324L12.6502 5.94966Z" fill="#549274"/>
+        </svg>
+        <div class="tab-text">
+          <img src="/HTML/Imagenes/carrito.svg" alt="carrito de compras">
+          Ventas
+        </div>
+      </div>
+      </a>
+      <a href="/HTML/VistaProductos/index.html">
+      <div class="tab-svg-inline">
+        <svg width="207" height="57" viewBox="0 0 207 57" fill="none">
+          <path d="M12.6502 5.94966C14.0433 1.9203 17.8379 -0.782715 22.1013 -0.782715H183.738C188.056 -0.782715 191.886 1.98855 193.236 6.0897L205.677 43.8725C207.807 50.341 202.989 57 196.179 57H9.03823C2.16578 57 -2.65849 50.2276 -0.412837 43.7324L12.6502 5.94966Z" fill="#549274"/>
+        </svg>
+        <div class="tab-text">
+          <img src="/HTML/Imagenes/Frame.svg" alt="productos">
+          Productos
+        </div>
+      </div>
+      </a>
+      <a href="/Reportes/Reportes.html">
+      <div class="tab-svg-inline">
+        <svg width="207" height="57" viewBox="0 0 207 57" fill="none">
+          <path d="M12.6502 5.94966C14.0433 1.9203 17.8379 -0.782715 22.1013 -0.782715H183.738C188.056 -0.782715 191.886 1.98855 193.236 6.0897L205.677 43.8725C207.807 50.341 202.989 57 196.179 57H9.03823C2.16578 57 -2.65849 50.2276 -0.412837 43.7324L12.6502 5.94966Z" fill="#549274"/>
+        </svg>
+        <div class="tab-text">
+          <img src="/HTML/Imagenes/reportes.svg" alt="reportes">
+          Reportes
+        </div>
+      </div>
+      </a>
+      <a href="/Vista insumos/insumo.html">
+      <div class="tab-svg-inline">
+        <svg width="207" height="57" viewBox="0 0 207 57" fill="none">
+          <path d="M12.6502 5.94966C14.0433 1.9203 17.8379 -0.782715 22.1013 -0.782715H183.738C188.056 -0.782715 191.886 1.98855 193.236 6.0897L205.677 43.8725C207.807 50.341 202.989 57 196.179 57H9.03823C2.16578 57 -2.65849 50.2276 -0.412837 43.7324L12.6502 5.94966Z" fill="#549274"/>
+        </svg>
+        <div class="tab-text">
+          <img src="/HTML/Imagenes/insumos.svg" alt="insumos">
+          Insumos 
+        </div>
+      </div>
+      </a>
+      <a href="/VistaConfiguracion/confi.html">
+      <div class="tab-svg-inline">
+        <svg width="207" height="57" viewBox="0 0 207 57" fill="none">
+          <path d="M12.6502 5.94966C14.0433 1.9203 17.8379 -0.782715 22.1013 -0.782715H183.738C188.056 -0.782715 191.886 1.98855 193.236 6.0897L205.677 43.8725C207.807 50.341 202.989 57 196.179 57H9.03823C2.16578 57 -2.65849 50.2276 -0.412837 43.7324L12.6502 5.94966Z" fill="#549274"/>
+        </svg>
+        <div class="tab-text">
+          <img src="/HTML/Imagenes/Frame 3.svg" alt="configuración">
+          Configuración
+        </div>
+      </div>
+      </a>
+    </div>
+  </nav>
+
+    <!-- Contenedor principal -->
+    <main class="main-container">
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="search-container">
+                <img src="/HTML/Imagenes/Lupaicon.png" alt="">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar producto por nombre o código" >
+            </div>
+            <div class="action-buttons">
+                <button class="action-btn btn-add" onclick="openAddModal()">Agregar</button>
+                <button class="action-btn btn-edit" onclick="openEditModal()" disabled>Editar</button>
+                <button class="action-btn btn-delete" onclick="openDeleteModal()" disabled>Eliminar</button>
+            </div>
+        </div>
+
+        <!-- Categoria botones -->
+        <div class="category-container">
+            <button class="category-btn" onclick="filterProducts('snack')">
+                <div class="category-icon">
+                    <img src="/HTML/Imagenes/Vector.png" alt="">
+                </div>
+                <div class="category-label">Snack</div>
+            </button>
+            <button class="category-btn" onclick="filterProducts('alimentos')">
+                <div class="category-icon">
+                     <img src="/HTML/Imagenes/iconoburger.png" alt="">
+                </div>
+                <div class="category-label">Alimentos</div>
+            </button>
+            <button class="category-btn" onclick="filterProducts('bebidas')">
+                <div class="category-icon">
+                    <img src="/HTML/Imagenes/Bebidas.png" alt="">
+                </div>
+                <div class="category-label">Bebidas</div>
+            </button>
+        </div>
+
+        <!-- Tabla de datos -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body" id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal Agregar -->
+    <div class="modal-overlay" id="addModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">Agregar Producto</span>
+                <button class="modal-close" onclick="closeAddModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm" onsubmit="validateForm(event)">
+                    <div class="form-group">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-input" id="productName" name="name">
+                        <div class="error-message" id="nameError">*Campo requerido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categoria</label>
+                        <select class="form-select" id="productCategory" name="category">
+                            <option value="">Seleccionar categoría</option>
+                            <option value="snack">Snack</option>
+                            <option value="alimentos">Alimentos</option>
+                            <option value="bebidas">Bebidas</option>
+                        </select>
+                        <div class="error-message" id="categoryError">*Campo requerido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripcion</label>
+                        <textarea class="form-textarea" id="productDescription" name="description"></textarea>
+                        <div class="error-message" id="descriptionError">*Campo requerido</div>
+                    </div>
+                        <div class="form-group">
+                            <label class="form-label">Imagen</label>
+                            <div class="file-input-container">
+                                <input type="file" class="file-input" id="productImage" name="image" accept="image/*" onchange="handleImagePreview('productImage', 'imagePreview')">
+                                <label for="productImage" class="file-input-label">
+                                    <span class="file-icon">
+                                        <img src="/HTML/Imagenes/subirImagen.png" alt="">
+                                    </span>
+                                    <span class="file-text">Seleccionar imagen</span>
+                                </label>
+                                <div id="imagePreview" class="image-preview"></div>
+                            </div>
+                            <div class="error-message" id="imageError">*Error formato de imagen no válido</div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Insumos a usar</label>
+                        <div class="supplies-container" id="suppliesContainer">
+                            <!-- Aquí se agregarán los insumos dinámicamente -->
+                        </div>
+                        <button type="button" class="add-supply-btn" onclick="openSupplyModal('add')">
+                            <img src="/HTML/Imagenes/agregar.png" alt="agregar insumo"> 
+                        </button>
+                        <div class="error-message" id="suppliesError">*Debe agregar al menos un insumo</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-input" id="productPrice" name="price" step="0.01" min="0">
+                        <div class="error-message" id="priceError">*Número no válido</div>
+                    </div>
+
+                     <div class="form-group">
+                        <label class="form-label">Precio de Produccion</label>
+                        <input type="number" class="form-input" id="costoProduccion" name="costoProduccion" step="0.01" min="0">
+                        <div class="error-message" id="costoError">*Número no válido o  mayor al precio de venta</div>
+                    </div>
+
+                    <button type="submit" class="modal-submit">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Insumos -->
+    <div class="modal-overlay" id="supplyModal">
+        <div class="modal-content supply-modal">
+            <div class="modal-header">
+                <span class="modal-title" id="supplyModalTitle">Agregar Insumo</span>
+                <button class="modal-close" onclick="closeSupplyModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="supplyForm">
+                    <div class="form-group">
+                        <label class="form-label">Insumo</label>
+                        <select class="form-select" id="supplyName">
+                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Cantidad</label>
+                        <div class="quantity-input-container">
+                            <input type="number" class="form-input" id="supplyQuantity" step="0.01" min="0.01" placeholder="0.00">
+                            <span id="unitMeasure" class="unit-measure">Unidad</span>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="modal-submit" id="supplySubmitBtn">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">Editar Producto</span>
+                <button class="modal-close" onclick="closeEditModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" onsubmit="event.preventDefault(); validateEditForm()">
+                    <div class="form-group">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-input" id="editName" name="name">
+                        <div class="error-message" id="editNameError">*Campo requerido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categoria</label>
+                        <select class="form-select" id="editCategory" name="category">
+                            <option value="snack">Snack</option>
+                            <option value="alimentos">Alimentos</option>
+                            <option value="bebidas">Bebidas</option>
+                        </select>
+                        <div class="error-message" id="editCategoryError">*Campo requerido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripcion</label>
+                        <textarea class="form-textarea" id="editDescription" name="description"></textarea>
+                        <div class="error-message" id="editDescriptionError">*Campo requerido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Imagen</label>
+                        <div class="file-input-container">
+                            <input type="file" class="file-input" id="editImage" name="image" accept="image/*" onchange="handleImagePreview('editImage', 'editImagePreview')">
+                            <label for="editImage" class="file-input-label">
+                                <span class="file-icon">
+                                    <img src="/HTML/Imagenes/subirImagen.png" alt="">
+                                </span>
+                                <span class="file-text">Cambiar imagen</span>
+                            </label>
+                            <div id="editImagePreview" class="image-preview"></div>
+                            <small class="form-help-text">Deje vacío para mantener la imagen actual</small>
+                        </div>
+                        <div class="error-message" id="editImageError">*Error formato de imagen no válido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Insumos a usar</label>
+                        <div class="supplies-container" id="editSuppliesContainer">
+                            <!-- Aquí se agregarán los insumos dinámicamente -->
+                        </div>
+                        <button type="button" class="add-supply-btn" onclick="openSupplyModal('edit')">
+                            <img src="/HTML/Imagenes/agregar.png" alt="agregar insumo"> 
+                        </button>
+                        <div class="error-message" id="editSuppliesError">*Debe agregar al menos un insumo</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-input" id="editPrice" name="price" step="0.01" min="0">
+                        <div class="error-message" id="editPriceError">*Número no válido</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Precio de Produccion</label>
+                        <input type="number" class="form-input" id="editCostoProduccion" name="costoProduccion" step="0.01" min="0">
+                        <div class="error-message" id="editCostoError">*Número no válido</div>
+                    </div>
+
+                    <button type="button" class="modal-submit" onclick="saveChanges()">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">Eliminar Producto</span>
+                <button class="modal-close" onclick="closeDeleteModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 18px; text-align: center;">¿Estás seguro que deseas eliminar este producto?</p>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button class="modal-submit" onclick="confirmDelete()">Eliminar</button>
+                    <button class="modal-submit btn-cancel" onclick="closeDeleteModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./productos.js"></script>
+
+</body>
+</html>

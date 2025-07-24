@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"name": "VistaConfiguracion",
+			"path": "../../../../front2/Integrador/Proyecto integrador/VistaConfiguracion"
+		},
+		{
+			"name": "Frontend",
+			"path": ".."
+		},
+		{
+			"name": "Vista insumos",
+			"path": "../../../../front2/Integrador/Proyecto integrador/Vista insumos"
+		},
+		{
+			"name": "HTML",
+			"path": "../../../../front2/Integrador/Proyecto integrador/HTML"
+		},
+		{
+			"name": "VistaUusuario",
+			"path": "../../../../front2/Integrador/Proyecto integrador/VistaUusuario"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Frontend"
+	}
+}

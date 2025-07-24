@@ -1,0 +1,176 @@
+
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1250px;
+            background: #EAEFEA;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            min-height: 600px;
+            min-width: 700px;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #EAEFEA;
+        }
+
+        .image-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 740px;
+            height: 1024px;
+            flex-shrink: 0;
+            background: url(<path-to-image>) lightgray -82.523px -8.151px / 118.001% 101.891% no-repeat;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            width: 123px;
+            height: 68px;
+            flex-shrink: 0;
+            aspect-ratio: 123/68;
+        }
+
+        .logo-text {
+            color: #2E703A;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            font-family: Khmer;
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            margin-top: 13px;
+            
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input ::placeholder{
+            color: #000;
+            font-family: ABeeZee;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 130%; /* 31.2px */
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #D7DDD6;
+            color: #2c3e50;
+            border-radius: 35px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: #a0a0a0;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            padding: 5px;
+        }
+
+        .password-toggle:hover {
+            color: #4CAF50;
+        }
+
+        .btn-register {
+            display: flex;
+            width: 200px;
+            height: 50px;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            border-radius: 20px;
+            background: #2E703A;
+            color: white;
+            margin-left: 65px;
+            margin-top: 40px;
+        }
+
+        .btn-register:hover {
+            background: linear-gradient(45deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-register:active {
+            transform: translateY(0);
+        }
+
+ 
+

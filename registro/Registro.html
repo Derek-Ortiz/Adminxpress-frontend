@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminXpress - Registro</title>
+    <link rel="stylesheet" href="./style_R.css">
+   
+    
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="./imagen/qfes-30.png" alt="">
+                </div>
+                <div class="logo-text">AdminXpress</div>
+            </div>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="company">Nombre de la empresa</label>
+                    <input type="text" id="company" name="company" class="form-control" placeholder="ej. AdminXpress" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Ingrese su usuario</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="ej. Martínez Méndez" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Ingrese su contraseña</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="••••••••••" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirme su contraseña</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="••••••••••" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">👁️</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-register">Registrarse</button>
+            </form>
+        </div>
+
+        <div class="image-section">
+            <img src="./imagen/img.png" alt="">
+        </div>
+    </div>
+
+     <script src="./script_R.js"></script>
+</body>
+</html>
