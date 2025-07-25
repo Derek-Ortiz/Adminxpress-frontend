@@ -399,14 +399,12 @@ table tbody tr.selected {
   font-size: 20px;
 }
 
-/* Contenedor principal del buscador */
 .search-container {
   margin: 1rem 0;
   display: flex;
   max-width: 100%;
 }
 
-/* Campo de entrada de texto */
 .search-container input {
   flex: 1;
   padding: 0.8rem 1rem;
@@ -417,12 +415,10 @@ table tbody tr.selected {
   color: white;
 }
 
-/* Placeholder blanco con opacidad */
 .search-container input::placeholder {
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* Botón de búsqueda */
 .search-container button {
   padding: 0 1.2rem;
   background-color: #EDAA57;
@@ -438,7 +434,6 @@ table tbody tr.selected {
   background-color: #e09b45;
 }
 
-/* Estilo para el foco */
 .search-container input:focus {
   outline: 2px solid white;
   outline-offset: -2px;

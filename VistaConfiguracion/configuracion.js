@@ -8,7 +8,6 @@ if (!codigoNegocio) {
     window.location.href = "/index.html"; 
 }
 
-// Funciones de validación
 function showError(fieldId, message) {
     const errorElement = document.createElement('span');
     errorElement.className = 'error-message';
@@ -19,7 +18,6 @@ function showError(fieldId, message) {
     const field = document.getElementById(fieldId);
     const parent = field.parentElement;
     
-    // Eliminar error previo si existe
     const existingError = parent.querySelector('.error-message');
     if (existingError) {
         existingError.remove();
@@ -76,7 +74,6 @@ function validateFormData(formData) {
     return isValid;
 }
 
-// Funciones principales
 function cargarUsuarios() {
     fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/usuarios`)
         .then(res => res.json())
@@ -97,7 +94,6 @@ function cargarUsuarios() {
                 tbody.appendChild(row);
             });
 
-            // Deshabilitar botones y quitar selección al recargar
             selectedRow = null;
             selectedUserId = null;
             document.querySelector('.btn-edit').disabled = true;
@@ -115,7 +111,6 @@ function seleccionarFila(row, id) {
     document.querySelector('.btn-delete').disabled = false;
 }
 
-// Manejo de modales
 const btnAdd = document.querySelector('.btn-add');
 const userModal = document.getElementById('userModal');
 const closeModalBtn = document.getElementById('closeModal');
@@ -129,7 +124,6 @@ closeModalBtn.addEventListener('click', () => {
     clearErrors();
 });
 
-// Agregar usuario con validaciones
 const userForm = document.getElementById('userForm');
 userForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -169,7 +163,6 @@ userForm.addEventListener('submit', e => {
     });
 });
 
-// Editar usuario
 const btnEdit = document.querySelector('.btn-edit');
 const editModal = document.getElementById('editModal');
 const closeEditModalBtn = document.getElementById('closeEditModal');
@@ -181,7 +174,6 @@ btnEdit.addEventListener('click', () => {
         return;
     }
 
-    // Cargar datos en el formulario
     const cells = selectedRow.cells;
     const nombres = cells[2].textContent.split(' ');
     document.getElementById('editNombre').value = nombres[0] || '';
@@ -200,7 +192,6 @@ closeEditModalBtn.addEventListener('click', () => {
     clearErrors();
 });
 
-// Validación para editar usuario
 editForm.addEventListener('submit', e => {
     e.preventDefault();
     clearErrors();
@@ -219,7 +210,6 @@ editForm.addEventListener('submit', e => {
         cargo: document.getElementById('editCargo').value
     };
 
-    // Validaciones para edición
     let hasErrors = false;
     
     if (!usuarioEditado.nombre) {
@@ -283,7 +273,6 @@ editForm.addEventListener('submit', e => {
     });
 });
 
-// Eliminar usuario con modal de confirmación
 const btnDelete = document.querySelector('.btn-delete');
 const confirmDeleteModal = document.getElementById('confirmDeleteModal');
 const closeConfirmDeleteBtn = document.getElementById('closeConfirmDeleteModal');
@@ -297,14 +286,11 @@ btnDelete.addEventListener('click', () => {
         return;
     }
     
-    // Mostrar nombre del usuario a eliminar
     userToDeleteName.textContent = selectedRow.cells[2].textContent;
     
-    // Mostrar modal de confirmación
     confirmDeleteModal.classList.add('active');
 });
 
-// Confirmar eliminación
 confirmDeleteBtn.addEventListener('click', () => {
     fetch(`http://52.73.124.1:7000/api/usuarios/${selectedUserId}`, {
         method: "DELETE"
@@ -312,16 +298,12 @@ confirmDeleteBtn.addEventListener('click', () => {
     .then(res => {
         if (!res.ok) throw new Error("Error al eliminar usuario");
         
-        // Cerrar modal
         confirmDeleteModal.classList.remove('active');
         
-        
-        // Eliminar mensaje después de 3 segundos
         setTimeout(() => {
             successMessage.remove();
         }, 3000);
         
-        // Recargar lista de usuarios
         cargarUsuarios();
     })
     .catch(err => {
@@ -331,29 +313,24 @@ confirmDeleteBtn.addEventListener('click', () => {
     });
 });
 
-// Cancelar eliminación
 cancelDeleteBtn.addEventListener('click', () => {
     confirmDeleteModal.classList.remove('active');
 });
 
-// Cerrar modal de confirmación
 closeConfirmDeleteBtn.addEventListener('click', () => {
     confirmDeleteModal.classList.remove('active');
 });
 
-// Cerrar modal al hacer clic fuera
 confirmDeleteModal.addEventListener('click', (e) => {
     if (e.target === confirmDeleteModal) {
         confirmDeleteModal.classList.remove('active');
     }
 });
 
-// Cerrar sesión
 function cerrarSesion() {
     localStorage.removeItem('userData');
     sessionStorage.clear();
     window.location.href = '/VistaUusuario/index.html';
 }
 
-// Inicialización
 document.addEventListener('DOMContentLoaded', cargarUsuarios);

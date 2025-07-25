@@ -24,7 +24,6 @@
         
         }
 
-        /* Logo */
         .logo {
             display: flex;
             align-items: center;
@@ -651,116 +650,6 @@
             cursor: pointer;
         }
 
-
-        /* Chart Section 
-        .chart-header {
-            text-align: center;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .chart-legend {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 2px;
-        }
-
-        .legend-ventas {
-            background-color: #6b9080;
-        }
-
-        .legend-gastos {
-            background-color: #d3d3d3;
-        }
-
-        
-        .chart-container {
-            position: relative;
-            height: 300px;
-            background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            align-items: end;
-            justify-content: space-around;
-            gap: 10px;
-        }
-
-        .chart-bar {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 60px;
-        }
-
-        .bar-group {
-            display: flex;
-            align-items: end;
-            gap: 3px;
-            margin-bottom: 10px;
-        }
-
-        .bar {
-            width: 25px;
-            border-radius: 4px 4px 0 0;
-            position: relative;
-        }
-
-        .bar-ventas {
-            background: linear-gradient(to top, #f0a500, #ffb84d);
-        }
-
-        .bar-gastos {
-            background: linear-gradient(to top, #d3d3d3, #e8e8e8);
-        }
-
-        .chart-label {
-            font-size: 12px;
-            color: #666;
-            font-weight: 500;
-        }
-
-         Chart Line 
-        .chart-line {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 50px;
-            pointer-events: none;
-        }
-
-        .line-ventas {
-            stroke: #2d5a3d;
-            stroke-width: 3;
-            fill: none;
-        }
-
-        .line-gastos {
-            stroke: #999;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;

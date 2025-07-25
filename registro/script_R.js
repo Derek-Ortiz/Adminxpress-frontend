@@ -12,20 +12,14 @@ function togglePassword(inputId) {
     }
 }
 
-// Función para mostrar mensajes de error o éxito
 function mostrarMensaje(mensaje, tipo = 'error') {
-    // Remover notificación anterior si existe
     const notificacionAnterior = document.querySelector('.notificacion');
     if (notificacionAnterior) {
         notificacionAnterior.remove();
     }
-    
-    // Crear elemento de notificación
     const notificacion = document.createElement('div');
     notificacion.className = `notificacion ${tipo}`;
     notificacion.textContent = mensaje;
-    
-    // Estilos inline para la notificación
     notificacion.style.cssText = `
         position: fixed;
         top: 20px;
@@ -42,15 +36,12 @@ function mostrarMensaje(mensaje, tipo = 'error') {
     
     document.body.appendChild(notificacion);
     
-    // Remover después de 5 segundos
     setTimeout(() => {
         if (notificacion.parentNode) {
             notificacion.remove();
         }
     }, 5000);
 }
-
-// Función para validar los datos del formulario
 function validarFormulario(datos) {
     const errores = [];
     
@@ -79,7 +70,6 @@ function validarFormulario(datos) {
     return errores;
 }
 
-// Función para registrar usuario
 async function registrarUsuario(datosUsuario) {
     try {
         const response = await fetch('http://52.73.124.1:7000/api/usuarios/registroAdmin', {
@@ -96,22 +86,18 @@ async function registrarUsuario(datosUsuario) {
             mostrarMensaje('¡Registro exitoso!', 'success');
             localStorage.setItem("codigoNegocio", data.codigo_negocio);
             
-            // Limpiar formulario
             document.getElementById('registerForm').reset();
             
-            // Limpiar estilos de validación
             document.querySelectorAll('.form-control').forEach(input => {
                 input.style.borderColor = '';
                 input.setCustomValidity('');
             });
             
-            // Opcional: redirigir después de un breve delay
             setTimeout(() => {
-                window.location.href = '/sesionadmin.html'; // Ajusta la ruta según tu aplicación
+                window.location.href = '/sesionadmin.html'; 
             }, 2000);
             
         } else {
-            // Manejar errores del servidor
             const errorMessage = data.message || data.error || 'Error en el registro';
             mostrarMensaje(errorMessage, 'error');
         }
@@ -122,7 +108,6 @@ async function registrarUsuario(datosUsuario) {
     }
 }
 
-// Función para validar contraseñas en tiempo real
 function validarContrasenas() {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
@@ -139,11 +124,9 @@ function validarContrasenas() {
     }
 }
 
-// Event listener para el formulario
 document.getElementById('registerForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Obtener datos del formulario
     const formData = new FormData(this);
     const datosUsuario = {
         company: formData.get('company'),
@@ -152,34 +135,28 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         confirmPassword: formData.get('confirmPassword')
     };
     
-    // Validar datos
     const errores = validarFormulario(datosUsuario);
     
     if (errores.length > 0) {
         mostrarMensaje(errores.join('. '), 'error');
         return;
     }
-    
-    // Mostrar loading (opcional)
     const submitBtn = this.querySelector('.btn-register');
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Registrando...';
     submitBtn.disabled = true;
     
     try {
-        // Preparar datos para enviar (sin confirmPassword)
         const { confirmPassword, ...datosParaEnviar } = datosUsuario;
         
         await registrarUsuario(datosParaEnviar);
         
     } finally {
-        // Restaurar botón
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
     }
 });
 
-// Efectos de interacción mejorados
 document.querySelectorAll('.form-control').forEach(input => {
     input.addEventListener('focus', function() {
         if (this.parentElement.classList.contains('input-wrapper')) {
@@ -198,14 +175,11 @@ document.querySelectorAll('.form-control').forEach(input => {
     });
 });
 
-// Validación en tiempo real para las contraseñas
 document.getElementById('confirmPassword').addEventListener('input', function() {
     validarContrasenas();
 });
 
-// También validar cuando se cambie la contraseña principal
 document.getElementById('password').addEventListener('input', function() {
-    // Validar longitud
     if (this.value.length > 0 && this.value.length < 8) {
         this.setCustomValidity('La contraseña debe tener al menos 8 caracteres');
         this.style.borderColor = '#dc3545';
@@ -213,8 +187,6 @@ document.getElementById('password').addEventListener('input', function() {
         this.setCustomValidity('');
         this.style.borderColor = '';
     }
-    
-    // Revalidar confirmación si ya hay algo escrito
     const confirmPassword = document.getElementById('confirmPassword').value;
     if (confirmPassword) {
         validarContrasenas();
@@ -245,14 +217,11 @@ document.getElementById('password').addEventListener('input', function(e) {
     validateInput(e.target);
 });
 
-
-// Modificar la función de submit para validar antes de enviar
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     const company = document.getElementById('company').value;
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     
-    // Validar que no contengan emojis
     const emojiRegex = /[\u{1F600}-\u{1F6FF}]/u;
     if (emojiRegex.test(username) || emojiRegex.test(password) || emojiRegex.test(company)) {
         e.preventDefault();
@@ -260,7 +229,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         return;
     }
     
-    // Resto de tu lógica de submit...
 });
 
 

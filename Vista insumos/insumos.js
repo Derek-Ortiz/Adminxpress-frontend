@@ -10,28 +10,20 @@ if (!codigoNegocio) {
     window.location.href = "/Sesion.html"; 
 }
 
-
-
-
-// Cargar insumos al iniciar
 document.addEventListener("DOMContentLoaded", listarInsumos);
 
-// LISTAR insumos por negocio
-// Añade esto al inicio, después de codigoNegocio
-let todosLosInsumos = []; // Almacenará todos los insumos para búsquedas locales
+let todosLosInsumos = []; 
 
-// Modifica tu función listarInsumos para guardar los datos
 function listarInsumos() {
   fetch(`${API_BASE}/negocio/${codigoNegocio}/insumos`)
     .then(res => res.json())
     .then(data => {
-      todosLosInsumos = data; // Guardamos todos los insumos
-      mostrarInsumos(data);   // Mostramos todos inicialmente
+      todosLosInsumos = data; 
+      mostrarInsumos(data);  
     })
     .catch(err => console.error("Error al listar los insumos:", err));
 }
 
-// Función auxiliar para mostrar insumos en la tabla
 function mostrarInsumos(insumos) {
   const tbody = document.querySelector("table tbody");
   tbody.innerHTML = "";
@@ -52,12 +44,11 @@ function mostrarInsumos(insumos) {
   });
 }
 
-// Función de búsqueda
 function buscarInsumosPorNombre() {
   const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
   
   if (!searchTerm) {
-    mostrarInsumos(todosLosInsumos); // Mostrar todos si no hay término de búsqueda
+    mostrarInsumos(todosLosInsumos); 
     return;
   }
 
@@ -70,8 +61,8 @@ function buscarInsumosPorNombre() {
 
 
 function formatCaducidad(caducidad) {
-  if (!caducidad) return "No aplica"; // 
-  return caducidad; // 
+  if (!caducidad) return "No aplica"; 
+  return caducidad; 
 }
 
 function colorPorEstado(estado) {
@@ -83,8 +74,6 @@ function colorPorEstado(estado) {
   }
 }
 
-
-// SELECCIÓN de fila
 let insumoSeleccionado = null;
 function seleccionarFila(fila, insumo) {
   document.querySelectorAll("tbody tr").forEach(r => r.classList.remove("selected"));
@@ -106,7 +95,6 @@ function seleccionarFila(fila, insumo) {
   document.getElementById("itemAEliminar").textContent = insumo.nombre;
 }
 
-// AGREGAR insumo
 function agregarItem() {
 
   let caducidad = document.getElementById("addCaducidad").value;
@@ -147,7 +135,6 @@ function agregarItem() {
   .catch(err => showError(err.message));
 }
 
-// Función para mostrar errores
 function showError(message) {
   const errorModal = document.getElementById("errorModal");
   const errorMessage = document.getElementById("errorMessage");
@@ -155,15 +142,12 @@ function showError(message) {
   errorMessage.textContent = message;
   errorModal.style.display = 'block';
   
-  // Configurar el botón de cierre
   const closeBtn = errorModal.querySelector(".close, .btn-cancel");
   closeBtn.onclick = function() {
     errorModal.style.display = 'none';
   };
 }
 
-
-// EDITAR insumo
 function editarItem() {
   if (!insumoSeleccionado) return;
 
@@ -197,9 +181,6 @@ function editarItem() {
   .catch(err => showError(err.message));
 }
 
-
-
-// Función para abrir el modal de historial
 function openHistorialModal() {
   if (!insumoSeleccionado) return;
   
@@ -244,26 +225,21 @@ function formatCaducidad(fechaStr) {
   return fechaStr ? new Date(fechaStr).toLocaleDateString() : "Sin fecha";
 }
 
-
-// Función para actualizar stock (modificada para tu estructura)
 function actualizarStock() {
   try {
-    // 1. Verificar que hay un insumo seleccionado
+
     if (!insumoSeleccionado) {
       throw new Error("Por favor seleccione un insumo primero");
     }
 
-    // 2. Obtener referencias a los elementos del formulario
     const stockInput = document.getElementById("updateStock");
     const precioInput = document.getElementById("updatePrecio");
     const caducidadInput = document.getElementById("updateCaducidad");
 
-    // 3. Verificar que los elementos existen
     if (!stockInput || !precioInput || !caducidadInput) {
       throw new Error("Error en el formulario: faltan campos requeridos");
     }
 
-    // 4. Obtener y validar los valores
     const nuevoStock = parseFloat(stockInput.value);
     const precio = parseFloat(precioInput.value);
     const caducidad = caducidadInput.value || null;
@@ -277,7 +253,6 @@ function actualizarStock() {
     
     }
 
-    // 5. Preparar los datos para enviar al servidor
     const datosActualizacion = {
       stock: nuevoStock,
       precio: precio,
@@ -285,8 +260,6 @@ function actualizarStock() {
       idNegocio: parseInt(codigoNegocio)
     };
 
-
-    // 6. Enviar la actualización al servidor
     fetch(`${API_BASE}/negocio/${codigoNegocio}/insumos/${insumoSeleccionado.id}/movimiento`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -301,7 +274,7 @@ function actualizarStock() {
       return response.json();
     })
     .then(data => {
-      // 7. Actualizar la lista y cerrar el modal
+  
       listarInsumos();
       closeModal("updateModal");
       alert("Stock actualizado correctamente");
@@ -317,10 +290,6 @@ function actualizarStock() {
   }
 }
 
-
-
-
-// ELIMINAR insumo 
 function eliminarItem() {
   if (!insumoSeleccionado) return;
 
@@ -337,7 +306,6 @@ function eliminarItem() {
   .catch(err => showError(err.message));
 }
 
-// Calcula estado según stock
 function calcularEstado(stock, minStock) {
   if (stock <= 0) {
     return "Sin stock";
@@ -348,7 +316,6 @@ function calcularEstado(stock, minStock) {
   }
 }
 
-// Abrir modal
 function openModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
@@ -356,7 +323,6 @@ function openModal(modalId) {
   }
 }
 
-// Cerrar modal
 function closeModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {

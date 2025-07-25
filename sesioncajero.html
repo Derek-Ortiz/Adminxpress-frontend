@@ -46,7 +46,7 @@
 
     <script>
   document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Evita que el formulario recargue la página
+    e.preventDefault(); 
 
     const usuario = document.getElementById('username').value;
     const contrasena = document.getElementById('password').value;
@@ -65,7 +65,7 @@
         console.log('Login exitoso:', data);
 
         localStorage.setItem('userData', JSON.stringify(data));
-        //  redirigir al cajero 
+      
         window.location.href = "/vistaCajero/index-C.html"; 
       } else {
         const errorText = await response.text();
@@ -85,10 +85,10 @@
     
     if (passwordInput.type === 'password') {
       passwordInput.type = 'text';
-      //para la imagen 
+   
       toggleIcon.src = "VistaUusuario/ojoabierto.svg";
       toggleIcon.alt = "Ocultar contraseña";
-      //para el tamaño 
+   
       toggleIcon.style.width = "50px"
     } else {
       passwordInput.type = 'password';
@@ -118,12 +118,10 @@ document.getElementById('password').addEventListener('input', function(e) {
     validateInput(e.target);
 });
 
-// Modificar la función de submit para validar antes de enviar
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     
-    // Validar que no contengan emojis
     const emojiRegex = /[\u{1F600}-\u{1F6FF}]/u;
     if (emojiRegex.test(username) || emojiRegex.test(password)) {
         e.preventDefault();
@@ -131,7 +129,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         return;
     }
     
-    // Resto de tu lógica de submit...
 });
 
 

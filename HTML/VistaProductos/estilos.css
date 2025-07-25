@@ -9,7 +9,6 @@ body {
     background-color: #f5f5f5;
 }
 
-/* Barra de navegación principal */
 .navbar {
     background: #f8f8f8;
     padding: 5px 10px;
@@ -21,7 +20,7 @@ body {
     height: 84px;
 }
 
-/* Logo */
+
 .logo {
     display: flex;
     align-items: center;
@@ -42,7 +41,7 @@ body {
     aspect-ratio: 149/81;
 }
 
-/* Pestañas */
+
 .tab-svg-inline {
     position: relative;
     cursor: pointer;
@@ -87,14 +86,14 @@ body {
     padding: 20px;
 }
 
-/* Main Container */
+
 .main-container {
     padding: 20px;
     max-width: 1500px;    
     margin: 0 auto;
 }
 
-/* Action Bar */
+
 .action-bar {
     display: flex;
     justify-content: space-between;
@@ -185,7 +184,7 @@ body {
     background-color: #973d3d;
 }
 
-/* Category Buttons */
+
 .category-container {
     display: flex;
     gap: 50px;
@@ -227,7 +226,6 @@ body {
     text-transform: uppercase;
 }
 
-/* Tabla con scroll */
 .table-container {
     background-color: #F1ECEC;
     border-radius: 8px;
@@ -289,13 +287,11 @@ body {
     border-right: 2px solid white;
 }
 
-/* Efecto hover - gris oscuro */
 .data-table tr:hover td {
     background-color: #e3e3e3;
     color: #666; 
 }
 
-/* Selección - verde */
 .data-table tr.selected td {
     background-color: #d3d8d4;
     color: #666; 
@@ -307,7 +303,6 @@ body {
     border-left: 4px solid #549274;
 }
 
-/* Scrollbar personalizado */
 .data-table tbody::-webkit-scrollbar {
     width: 8px;
 }
@@ -326,7 +321,6 @@ body {
     background: #307051;
 }
 
-/* Modales */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -481,7 +475,6 @@ body {
     display: block;
 }
 
-/* Estilos para insumos */
 .supplies-container {
     display: flex;
     flex-direction: column;
@@ -567,7 +560,6 @@ body {
     background-color: #6b6b6b !important;
 }
 
-/* Estilos para inputs con error */
 .form-group .error-message.show + .form-input,
 .form-group .error-message.show + .form-select,
 .form-group .error-message.show + .form-textarea,
@@ -576,13 +568,11 @@ body {
     background-color: #ffebee !important;
 }
 
-/* Estilo específico para el input de archivo cuando hay error */
 .form-group .error-message.show ~ .file-input-container .file-input-label {
     background-color: #ffebee !important;
     color: #dc3545;
 }
 
-/* Espacio entre botones en modal de eliminación */
 .modal-overlay#deleteModal .modal-body > div {
     display: flex;
     justify-content: space-between;
@@ -590,19 +580,16 @@ body {
     margin-top: 20px;
 }
 
-/* Asegurar que ambos botones tengan el mismo ancho */
 .modal-overlay#deleteModal .modal-submit,
 .modal-overlay#deleteModal .btn-cancel {
     flex: 1;
 }
 
-/* Modal de insumos simplificado */
+
 .supply-modal {
     max-width: 400px;
 }
 
-
-/* Estilos para los insumos */
 .supplies-container {
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -666,18 +653,18 @@ body {
 }
 
 #editModal {
-    z-index: 1000; /* o mayor que otros overlays normales */
+    z-index: 1000; 
 }
 
 #supplyModal {
-    z-index: 1100; /* más alto para que esté encima */
+    z-index: 1100; 
 }
 
-/* Estilos para las imágenes en la tabla */
+
 .imagen-cell {
     text-align: center;
     padding: 8px;
-    width: 375px; /* Ancho fijo para la columna */
+    width: 375px; 
 }
 
 .producto-imagen {
@@ -695,7 +682,6 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Modal para ampliar imagen */
 .imagen-modal {
     display: none;
     position: fixed;
@@ -734,8 +720,6 @@ body {
     opacity: 0.7;
 }
 
-
-/* Responsive */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;

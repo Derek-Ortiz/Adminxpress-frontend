@@ -74,9 +74,8 @@
     </div>
   </nav>
 
-    <!-- Contenedor principal -->
     <main class="main-container">
-        <!-- Action Bar -->
+        
         <div class="action-bar">
             <div class="search-container">
                 <img src="/HTML/Imagenes/Lupaicon.png" alt="">
@@ -89,7 +88,6 @@
             </div>
         </div>
 
-        <!-- Categoria botones -->
         <div class="category-container">
             <button class="category-btn" onclick="filterProducts('snack')">
                 <div class="category-icon">
@@ -111,7 +109,7 @@
             </button>
         </div>
 
-        <!-- Tabla de datos -->
+      
         <div class="table-container">
             <table class="data-table">
                 <thead class="table-header">
@@ -128,7 +126,6 @@
         </div>
     </main>
 
-    <!-- Modal Agregar -->
     <div class="modal-overlay" id="addModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -177,7 +174,7 @@
                     <div class="form-group">
                         <label class="form-label">Insumos a usar</label>
                         <div class="supplies-container" id="suppliesContainer">
-                            <!-- Aquí se agregarán los insumos dinámicamente -->
+                           
                         </div>
                         <button type="button" class="add-supply-btn" onclick="openSupplyModal('add')">
                             <img src="/HTML/Imagenes/agregar.png" alt="agregar insumo"> 
@@ -203,7 +200,6 @@
         </div>
     </div>
 
-    <!-- Modal de Insumos -->
     <div class="modal-overlay" id="supplyModal">
         <div class="modal-content supply-modal">
             <div class="modal-header">
@@ -215,7 +211,7 @@
                     <div class="form-group">
                         <label class="form-label">Insumo</label>
                         <select class="form-select" id="supplyName">
-                            <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                            
                         </select>
                     </div>
                     
@@ -233,7 +229,6 @@
         </div>
     </div>
 
-    <!-- Modal de Edición -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -283,7 +278,7 @@
                     <div class="form-group">
                         <label class="form-label">Insumos a usar</label>
                         <div class="supplies-container" id="editSuppliesContainer">
-                            <!-- Aquí se agregarán los insumos dinámicamente -->
+                          
                         </div>
                         <button type="button" class="add-supply-btn" onclick="openSupplyModal('edit')">
                             <img src="/HTML/Imagenes/agregar.png" alt="agregar insumo"> 
@@ -309,7 +304,6 @@
         </div>
     </div>
 
-    <!-- Modal de Eliminación -->
     <div class="modal-overlay" id="deleteModal">
         <div class="modal-content">
             <div class="modal-header">

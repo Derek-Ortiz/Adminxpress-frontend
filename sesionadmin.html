@@ -53,7 +53,6 @@
     const buttonText = loginButton.querySelector('.button-text');
     const originalButtonText = buttonText.textContent;
     
-    // Mostrar estado de carga
     buttonText.textContent = 'Verificando...';
     loginButton.disabled = true;
     
@@ -72,41 +71,33 @@
         const data = await response.json();
         
         if (response.ok) {
-            // Login exitoso - según tu backend devuelve el objeto Usuario completo
             console.log('Login exitoso:', data);
             
-            // Guardar datos del usuario en localStorage
             localStorage.setItem('userData', JSON.stringify(data));
             
-            // Redirigir al dashboard
             window.location.href = '/VistaConfiguracion/confi.html';
         } else {
-            // Mostrar mensaje de error
             showError(data.error || 'Credenciales incorrectas');
         }
     } catch (error) {
         console.error('Error:', error);
         showError('Error al conectar con el servidor');
     } finally {
-        // Restaurar el botón
         buttonText.textContent = originalButtonText;
         loginButton.disabled = false;
     }
 });
 
 function showError(message) {
-    // Eliminar mensajes de error previos
     const existingError = document.querySelector('.error-message');
     if (existingError) {
         existingError.remove();
     }
     
-    // Crear y mostrar nuevo mensaje de error
     const errorElement = document.createElement('div');
     errorElement.className = 'error-message';
     errorElement.textContent = message;
     
-    // Insertar después del formulario
     const form = document.getElementById('loginForm');
     form.parentNode.insertBefore(errorElement, form.nextSibling);
 }
@@ -118,18 +109,17 @@ function showError(message) {
     
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        toggleIcon.src = "VistaUusuario/ojoabierto.svg";  // Ruta de tu imagen para "ocultar"
+        toggleIcon.src = "VistaUusuario/ojoabierto.svg";  
         toggleIcon.alt = "Ocultar contraseña";
         toggleIcon.style.width = "50px"
     } else {
         passwordInput.type = 'password';
-        toggleIcon.src = "VistaUusuario/ojocontrasena.svg"; // Ruta de tu imagen para "mostrar"
+        toggleIcon.src = "VistaUusuario/ojocontrasena.svg"; 
         toggleIcon.alt = "Mostrar contraseña";
         toggleIcon.style.width = "50px"
     }
 }
 
-// Función para validar inputs
 function validateInput(input) {
     
     const validChars = /^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑüÜ!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?\s]*$/;
@@ -150,12 +140,10 @@ document.getElementById('password').addEventListener('input', function(e) {
     validateInput(e.target);
 });
 
-// Modificar la función de submit para validar antes de enviar
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     
-    // Validar que no contengan emojis
     const emojiRegex = /[\u{1F600}-\u{1F6FF}]/u;
     if (emojiRegex.test(username) || emojiRegex.test(password)) {
         e.preventDefault();
@@ -163,7 +151,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         return;
     }
     
-    // Resto de tu lógica de submit...
 });
 
 

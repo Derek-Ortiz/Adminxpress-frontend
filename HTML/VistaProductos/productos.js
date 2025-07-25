@@ -1,4 +1,4 @@
-// Variables globales
+
 let currentCategory = 'all';
 let selectedRow = null;
 let selectedProductId = null;
@@ -7,7 +7,6 @@ let editSupplies = [];
 let currentModal = 'add';
 let products = []; 
 
-// Obtener código de negocio del localStorage
 function obtenerCodigoNegocio() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const codigoNegocio = userData?.codigo_negocio;
@@ -23,7 +22,6 @@ function obtenerCodigoNegocio() {
     return codigoNegocio;
 }
 
-// Función para cargar productos desde el backend
 async function cargarProductos() {
     const codigoNegocio = obtenerCodigoNegocio();
     if (!codigoNegocio) return;
@@ -40,7 +38,7 @@ async function cargarProductos() {
         if (!response.ok) throw new Error('Error al cargar productos');
         
         products = await response.json();
-        console.log("Productos cargados:", products);
+        console.log("Productos:", products);
         renderTable();
     } catch (error) {
         console.error('Error:', error);
@@ -48,35 +46,31 @@ async function cargarProductos() {
     }
 }
 
-// Funciones para selección de fila
 function selectRow(row, productId) {
-    // Remover selección previa
+   
     const rows = document.querySelectorAll('#tableBody tr');
     rows.forEach(r => r.classList.remove('selected'));
     
-    // Seleccionar nueva fila
+   
     row.classList.add('selected');
     selectedRow = row;
     selectedProductId = productId;
     
-    // Habilitar botones
+
     document.querySelector('.btn-edit').disabled = false;
     document.querySelector('.btn-delete').disabled = false;
 }
 
-// Funciones para abrir modales
 async function openAddModal() {
-    clearForm(); // Limpias el formulario primero (como ya lo haces)
+    clearForm(); 
     
     const insumos = await cargarInsumos();
-    if (!insumos) return; // Si hubo error o no hay insumos, salir
+    if (!insumos) return; 
     
     const supplySelect = document.getElementById('supplyName');
-    
-    // Limpiar dropdown
+   
     supplySelect.innerHTML = '';
-    
-    // Opción por defecto
+ 
     const defaultOption = new Option(
         'Seleccione un insumo',
         '',
@@ -85,7 +79,6 @@ async function openAddModal() {
     );
     supplySelect.add(defaultOption);
     
-    // Llenar con insumos
     insumos.forEach(insumo => {
         const optionText = `${insumo.nombre} (${insumo.unidad})`;
         const option = new Option(optionText, insumo.id);
@@ -93,7 +86,6 @@ async function openAddModal() {
         supplySelect.add(option);
     });
 
-    // Mostrar modal
     document.getElementById('addModal').classList.add('active');
     document.body.style.overflow = 'hidden';
     currentModal = 'add';
@@ -132,25 +124,22 @@ async function openEditModal() {
 
 
     try {
-        // 1. Obtener datos del producto
+      
         const response = await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${selectedProductId}`);
         if (!response.ok) throw new Error('Error al obtener producto');
         const producto = await response.json();
 
-        // 2. Llenar formulario con datos del producto
         document.getElementById('editName').value = producto.nombre;
         document.getElementById('editCategory').value = producto.tipo.toLowerCase();
         document.getElementById('editDescription').value = producto.descripcion;
         document.getElementById('editPrice').value = producto.precioActual;
         document.getElementById('editCostoProduccion').value = producto.costoProduccion;
 
-        // 3. Obtener insumos del producto (los que ya tiene asignados)
         const insumosResponse = await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${selectedProductId}/insumos`);
         if (!insumosResponse.ok) throw new Error('Error al obtener insumos');
         editSupplies = await insumosResponse.json();
-        renderSupplies('edit'); // Mostrar insumos actuales en el contenedor
+        renderSupplies('edit'); 
 
-        // 4. Cargar todos los insumos disponibles para llenar el <select> de insumos en edición
          document.getElementById('supplySubmitBtn').onclick = function() {
             if (currentModal === 'edit') {
                 addEditSupply();
@@ -163,13 +152,11 @@ async function openEditModal() {
         if (!todosInsumos) return;
 
         const supplySelect = document.getElementById('supplyName');
-        supplySelect.innerHTML = ''; // Limpiar opciones previas
+        supplySelect.innerHTML = ''; 
 
-        // Opción por defecto
         const defaultOption = new Option('Seleccione un insumo', '', true, true);
         supplySelect.add(defaultOption);
 
-        // Agregar opciones con todos los insumos disponibles
         todosInsumos.forEach(insumo => {
             const optionText = `${insumo.nombre} (${insumo.unidad})`;
             const option = new Option(optionText, insumo.id);
@@ -177,7 +164,6 @@ async function openEditModal() {
             supplySelect.add(option);
         });
 
-        // 5. Mostrar modal de edición
         document.getElementById('editModal').classList.add('active');
         document.body.style.overflow = 'hidden';
         currentModal = 'edit';
@@ -198,7 +184,6 @@ function openSupplyModal(context = 'add') {
     document.getElementById('supplyModal').classList.add('active');
     currentModal = context;
     
-    // Configurar el botón según el contexto
     const submitBtn = document.getElementById('supplySubmitBtn');
     if (context === 'edit') {
         submitBtn.textContent = 'Agregar a edición';
@@ -208,7 +193,6 @@ function openSupplyModal(context = 'add') {
         submitBtn.onclick = addSupply;
     }
     
-    // Actualizar la unidad de medida cuando se selecciona un insumo
     document.getElementById('supplyName').addEventListener('change', function() {
         const selectedOption = this.options[this.selectedIndex];
         const unit = selectedOption.dataset.unidad || 'Unidad';
@@ -216,7 +200,6 @@ function openSupplyModal(context = 'add') {
     });
 }
 
-// Funciones para cerrar modales
 function closeAddModal() {
     document.getElementById('addModal').classList.remove('active');
     document.body.style.overflow = 'auto';
@@ -244,7 +227,6 @@ function closeSupplyModal() {
     document.getElementById('supplyForm').reset();
 }
 
-// Limpiar formulario
 function clearForm() {
     document.getElementById('productForm').reset();
     const errorMessages = document.querySelectorAll('.error-message');
@@ -252,20 +234,16 @@ function clearForm() {
     suppliesToAdd = [];
     renderSupplies();
     
-    // Limpiar preview de imagen
     const preview = document.getElementById('imagePreview');
     if (preview) preview.innerHTML = '';
 }
 
-// Validación de formulario
 async function validateForm(event) {
     event.preventDefault();
     
     const codigoNegocio = obtenerCodigoNegocio();
     if (!codigoNegocio) return;
 
-
-        // Declara todas las variables primero
     const nombre = document.getElementById('productName').value.trim();
     const categoria = document.getElementById('productCategory').value;
     const descripcion = document.getElementById('productDescription').value.trim();
@@ -275,17 +253,10 @@ async function validateForm(event) {
     
     let hasErrors = false;
     
-    // Limpiar errores previos
     document.querySelectorAll('.error-message').forEach(error => {
         error.classList.remove('show');
     });
     
-    // Limpiar errores previos
-    //const errorMessages = document.querySelectorAll('.error-message');
-    //errorMessages.forEach(error => error.classList.remove('show'));
-    
-    // Validaciones (las que ya tenías)
-        // Validaciones
     if (!nombre) {
         document.getElementById('nameError').classList.add('show');
         hasErrors = true;
@@ -330,13 +301,11 @@ async function validateForm(event) {
     }
     
     if (hasErrors) return;
-    // ...
 
     try {
-    // Crear FormData para enviar archivo + datos
+  
     const formData = new FormData();
     
-    // Agregar datos del producto como JSON
     const productData = {
         nombre: nombre,
         tipo: categoria,
@@ -348,17 +317,12 @@ async function validateForm(event) {
     
     formData.append('producto', JSON.stringify(productData));
     
-    // Agregar imagen si existe
     if (imagen) {
         formData.append('imagen', imagen);
     }
 
-
-        console.log("📤 FormData que se va a enviar:");
-        console.log("- Producto JSON:", JSON.stringify(productData));
         console.log("- Imagen:", imagen ? `${imagen.name} (${imagen.size} bytes)` : "Sin imagen");
 
-        // Para ver el contenido completo del FormData:
          console.log("📤 FormData finaaal que se va a enviar:");
         for (let [key, value] of formData.entries()) {
             console.log(`- ${key}:`, value);
@@ -379,7 +343,6 @@ async function validateForm(event) {
         
         const productoGuardado = await response.json();
         
-        // 2. Agregar los insumos (si hay)
         if (suppliesToAdd.length > 0) {
             for (const supply of suppliesToAdd) {
                 await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${productoGuardado.id}/insumos`, {
@@ -404,8 +367,6 @@ async function validateForm(event) {
     }
 }
 
-
-// Funciones para manejar insumos
 function addSupply() {
     const supplySelect = document.getElementById('supplyName');
     const selectedOption = supplySelect.options[supplySelect.selectedIndex];
@@ -423,7 +384,6 @@ function addSupply() {
         unidad_medida: selectedOption.dataset.unidad
     };
     
-    // Verificar si el insumo ya fue agregado
     if (suppliesToAdd.some(s => s.id_insumo === newSupply.id_insumo)) {
         alert('Este insumo ya fue agregado');
         return;
@@ -457,12 +417,10 @@ function renderSupplies(context = 'add') {
     });
 }
 
-
-// Función para agregar insumo en modo edición
 function addEditSupply() {
-    const supplySelect = document.getElementById('supplyName'); // ID corregido
+    const supplySelect = document.getElementById('supplyName'); 
     const selectedOption = supplySelect.options[supplySelect.selectedIndex];
-    const quantity = parseFloat(document.getElementById('supplyQuantity').value); // ID corregido
+    const quantity = parseFloat(document.getElementById('supplyQuantity').value); 
     
     if (!selectedOption.value || isNaN(quantity) || quantity <= 0) {
         alert('Por favor seleccione un insumo e ingrese una cantidad válida');
@@ -476,7 +434,6 @@ function addEditSupply() {
         unidad_medida: selectedOption.dataset.unidad
     };
     
-    // Verificar si el insumo ya fue agregado
     if (editSupplies.some(s => s.id_insumo === newSupply.id_insumo)) {
         alert('Este insumo ya fue agregado');
         return;
@@ -486,7 +443,6 @@ function addEditSupply() {
     renderSupplies('edit');
     closeSupplyModal();
     
-    // Resetear el formulario de insumos
     document.getElementById('supplyForm').reset();
 }
 
@@ -500,12 +456,11 @@ function removeSupply(index, context = 'add') {
     }
 }
 
-// Agregar insumos a un producto
 async function agregarInsumosProducto(productoId, codigoNegocio) {
     try {
         const promises = suppliesToAdd.map(async supply => {
             const insumoData = {
-                codigoInsumo: supply.id_insumo, // Asumiendo que el objeto supply tiene este campo
+                codigoInsumo: supply.id_insumo,
                 cantidadUsar: supply.cantidad
             };
             
@@ -539,7 +494,6 @@ async function agregarInsumosProducto(productoId, codigoNegocio) {
     }
 }
 
-// Guardar cambios en edición
 async function saveChanges() {
 
     if (!selectedProductId) return;
@@ -554,14 +508,13 @@ async function saveChanges() {
     const precio = document.getElementById('editPrice').value;
     const costoProduccion = document.getElementById('editCostoProduccion').value;
     
-    // Validaciones básicas
     if (!nombre || !categoria || !descripcion || isNaN(precio) || isNaN(costoProduccion)) {
         alert('Por favor complete todos los campos requeridos');
         return;
     }
     
     try {
-    // Crear FormData para manejar imagen y datos
+   
     const formData = new FormData();
     
     const productoData = {
@@ -575,17 +528,9 @@ async function saveChanges() {
 
     formData.append('producto', JSON.stringify(productoData));
     
-    // Agregar imagen si se seleccionó una nueva
     if (imagen) {
         formData.append('imagen', imagen);
     }
-
-        console.log("📤 FormData que se va a enviar:");
-        console.log("- Producto JSON:", JSON.stringify(productoData));
-        console.log("- Imagen:", imagen ? `${imagen.name} (${imagen.size} bytes)` : "Sin imagen");
-
-
-    console.log("➡ Datos final del producto a enviar:", productoData);
 
         const response = await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${selectedProductId}`, {
             method: 'PUT',
@@ -604,16 +549,13 @@ async function saveChanges() {
             throw new Error(`Error del servidor: ${response.status} - ${errorText}`);
         }
 
-        // 2. Actualizar insumos
         if (editSupplies.length > 0) {
             console.log("➡ Actualizando insumos:", editSupplies);
             
-            // Primero eliminar todos los insumos existentes
             await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${selectedProductId}/insumos`, {
                 method: 'DELETE'
             });
             
-            // Luego agregar los nuevos insumos
             for (const supply of editSupplies) {
                 const insumoData = {
                     codigoInsumo: supply.id_insumo,
@@ -634,7 +576,6 @@ async function saveChanges() {
             }
         }
         
-        alert('Cambios guardados exitosamente');
         closeEditModal();
         cargarProductos();
         
@@ -644,7 +585,6 @@ async function saveChanges() {
     }
 }
 
-// Confirmar eliminación
 async function confirmDelete() {
     if (!selectedProductId) return;
     
@@ -655,13 +595,11 @@ async function confirmDelete() {
         const response = await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${selectedProductId}`, {
             method: 'DELETE'
         });
-
         if (response.status === 401) {
             alert("La sesión ha expirado. Por favor inicie sesión nuevamente.");
             window.location.href = "/Sesion.html";
             return;
         }
-
         if (!response.ok) throw new Error('Error al eliminar producto');
         
         alert('Producto eliminado exitosamente');
@@ -675,8 +613,6 @@ async function confirmDelete() {
     }
 }
 
-// Renderizar tabla con productos
-// Función renderTable corregida
 function renderTable(category = 'all') {
     const tableBody = document.getElementById('tableBody');
     tableBody.innerHTML = '';
@@ -684,34 +620,30 @@ function renderTable(category = 'all') {
     const filteredProducts = category === 'all' 
         ? products 
         : products.filter(producto => {
-            // Manejo seguro del tipo de producto
             const tipo = producto.tipo ? producto.tipo.toLowerCase() : '';
             return tipo === category;
         });
     
     filteredProducts.forEach(producto => {
-        // Verificar que el producto tenga los datos necesarios
         if (!producto || !producto.nombre) return;
         
         const row = document.createElement('tr');
         row.onclick = () => selectRow(row, producto.id);
 
-        // Manejo seguro de la imagen
-        let imagenUrl = '/HTML/Imagenes/ejemplo.png'; // Imagen por defecto
+        let imagenUrl = '/HTML/Imagenes/ejemplo.png'; 
         if (producto.imagen) {
-            // Si la imagen viene como base64 o URL del servidor
+         
             if (typeof producto.imagen === 'string') {
                 if (producto.imagen.startsWith('data:')) {
-                    imagenUrl = producto.imagen; // Base64
+                    imagenUrl = producto.imagen; 
                 } else if (producto.imagen.startsWith('uploads/')) {
-                    // 
+                    
                     imagenUrl = `http://52.73.124.1:7000/${producto.imagen}`;
                 } else {
-                    // Por si acaso viene solo el nombre del archivo
+                 
                     imagenUrl = `http://52.73.124.1:7000/uploads/${producto.imagen}`;
                 }
             } else if (producto.imagen.length > 0) {
-                // Si viene como array de bytes
                 try {
                     const blob = new Blob([new Uint8Array(producto.imagen)], {type: 'image/png'});
                     imagenUrl = URL.createObjectURL(blob);
@@ -721,7 +653,6 @@ function renderTable(category = 'all') {
             }
         }
         
-        // Manejo seguro del precio
         let precioFormateado = '$0.00';
         if (producto.precioActual !== undefined && producto.precioActual !== null) {
             try {
@@ -731,7 +662,6 @@ function renderTable(category = 'all') {
             }
         }
         
-        // ✅ CAMBIO PRINCIPAL: Agregar la imagen al HTML
         row.innerHTML = `
             <td>${producto.nombre || 'Sin nombre'}</td>
             <td class="imagen-cell">
@@ -749,14 +679,11 @@ function renderTable(category = 'all') {
     });
 }
 
-// ✅ Función para ampliar imagen (evita que se active selectRow)
 function ampliarImagen(src, event) {
-    // Detener la propagación para que no se active selectRow
+   
     if (event) {
         event.stopPropagation();
     }
-    
-    // Crear modal si no existe
     if (!document.getElementById('imagenModal')) {
         const modal = document.createElement('div');
         modal.id = 'imagenModal';
@@ -767,23 +694,18 @@ function ampliarImagen(src, event) {
         `;
         document.body.appendChild(modal);
         
-        // Cerrar modal al hacer clic
         modal.onclick = () => modal.style.display = 'none';
         document.querySelector('.imagen-modal-close').onclick = () => modal.style.display = 'none';
         
-        // Cerrar con ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 modal.style.display = 'none';
             }
         });
     }
-    
-    // Mostrar imagen
     document.getElementById('imagenAmpliada').src = src;
     document.getElementById('imagenModal').style.display = 'block';
 }
-
 
 function handleImagePreview(inputId, previewId) {
     const input = document.getElementById(inputId);
@@ -800,21 +722,15 @@ function handleImagePreview(inputId, previewId) {
     }
 }
 
-
-// Event listeners para los botones de categoría
 document.querySelectorAll('.category-btn').forEach((btn, index) => {
     const categories = ['snack', 'alimentos', 'bebidas'];
     btn.addEventListener('click', () => {
-        // Remover clase active de todos los botones
         document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-        // Añadir clase active al botón clickeado
         btn.classList.add('active');
-        // Filtrar la tabla
         renderTable(categories[index]);
     });
 });
 
-// Cerrar modales al hacer clic fuera
 document.querySelectorAll('.modal-overlay').forEach(modal => {
     modal.addEventListener('click', function(e) {
         if (e.target === this) {
@@ -826,37 +742,31 @@ document.querySelectorAll('.modal-overlay').forEach(modal => {
     });
 });
 
-// Inicializar la aplicación
 document.addEventListener('DOMContentLoaded', () => {
     cargarProductos();
 });
 
-// Función de búsqueda de productos
 function buscarProductosPorNombre() {
     const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
     
     if (!searchTerm) {
-        renderTable(currentCategory); // Mostrar todos según la categoría actual
+        renderTable(currentCategory); 
         return;
     }
 
-    // Filtrar productos por nombre, considerando también la categoría actual
     let productosFiltrados = products.filter(producto => 
         producto.nombre.toLowerCase().includes(searchTerm)
     );
 
-    // Si hay una categoría específica seleccionada, aplicar ese filtro también
     if (currentCategory !== 'all') {
         productosFiltrados = productosFiltrados.filter(producto => {
             const tipo = producto.tipo ? producto.tipo.toLowerCase() : '';
             return tipo === currentCategory;
         });
     }
-    
     renderFilteredTable(productosFiltrados);
 }
 
-// Función para renderizar tabla filtrada (similar a renderTable pero recibe productos filtrados)
 function renderFilteredTable(filteredProducts) {
     const tableBody = document.getElementById('tableBody');
     tableBody.innerHTML = '';
@@ -873,13 +783,12 @@ function renderFilteredTable(filteredProducts) {
     }
     
     filteredProducts.forEach(producto => {
-        // Verificar que el producto tenga los datos necesarios
+        
         if (!producto || !producto.nombre) return;
         
         const row = document.createElement('tr');
         row.onclick = () => selectRow(row, producto.id);
         
-        // Manejo seguro del precio
         let precioFormateado = '$0.00';
         if (producto.precioActual !== undefined && producto.precioActual !== null) {
             try {
@@ -900,53 +809,35 @@ function renderFilteredTable(filteredProducts) {
     });
 }
 
-// Función para limpiar búsqueda
 function limpiarBusqueda() {
     document.getElementById("searchInput").value = '';
     renderTable(currentCategory);
 }
 
-// Event listener actualizado para los botones de categoría
 document.addEventListener('DOMContentLoaded', () => {
     cargarProductos();
     
-    // Actualizar los event listeners de categorías para mantener el estado
     document.querySelectorAll('.category-btn').forEach((btn, index) => {
         const categories = ['snack', 'alimentos', 'bebidas'];
         btn.addEventListener('click', () => {
-            // Actualizar categoría actual
+           
             currentCategory = categories[index];
             
-            // Remover clase active de todos los botones
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            // Añadir clase active al botón clickeado
             btn.classList.add('active');
-            
-            // Limpiar búsqueda y filtrar la tabla
             document.getElementById("searchInput").value = '';
             renderTable(currentCategory);
         });
     });
     
-    
-    // Event listener para el campo de búsqueda
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
-        // Búsqueda en tiempo real mientras escribes
         searchInput.addEventListener('input', buscarProductosPorNombre);
-        
-        // También búsqueda al presionar Enter
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 buscarProductosPorNombre();
             }
         });
-    }
-    
-    // Event listener para botón de limpiar búsqueda (si existe)
-    const clearBtn = document.getElementById("clearSearchBtn");
-    if (clearBtn) {
-        clearBtn.addEventListener('click', limpiarBusqueda);
     }
 });
 
