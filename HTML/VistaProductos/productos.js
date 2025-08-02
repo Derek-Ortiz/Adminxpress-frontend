@@ -99,31 +99,27 @@ async function openEditModal() {
     if (!codigoNegocio) return;
 
     try {
-        // Cargar datos del producto
+       
         const response = await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${selectedProductId}`);
         if (!response.ok) throw new Error('Error al obtener producto');
         const producto = await response.json();
 
-        // Llenar formulario
         document.getElementById('editName').value = producto.nombre;
         document.getElementById('editCategory').value = producto.tipo.toLowerCase();
         document.getElementById('editDescription').value = producto.descripcion;
         document.getElementById('editPrice').value = producto.precioActual;
         document.getElementById('editCostoProduccion').value = producto.costoProduccion;
 
-        // Limpiar imagen anterior
         const editImageInput = document.getElementById('editImage');
         const editImagePreview = document.getElementById('editImagePreview');
         if (editImageInput) editImageInput.value = '';
         if (editImagePreview) editImagePreview.innerHTML = '';
 
-        // Cargar insumos del producto
         const insumosResponse = await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${selectedProductId}/insumos`);
         if (!insumosResponse.ok) throw new Error('Error al obtener insumos');
         editSupplies = await insumosResponse.json();
         renderSupplies('edit'); 
 
-        // Cargar lista de insumos disponibles
         await loadSuppliesForModal();
 
         document.getElementById('editModal').classList.add('active');
@@ -205,7 +201,6 @@ async function validateForm(event) {
     const precio = parseFloat(document.getElementById('productPrice').value);
     const costoProduccion = parseFloat(document.getElementById('costoProduccion').value);
     
-    // Validaciones
     let hasErrors = false;
     document.querySelectorAll('.error-message').forEach(error => error.classList.remove('show'));
     
@@ -265,7 +260,6 @@ async function validateForm(event) {
         
         const productoGuardado = await response.json();
         
-        // Agregar insumos
         for (const supply of suppliesToAdd) {
             await fetch(`http://52.73.124.1:7000/api/negocio/${codigoNegocio}/productos/${productoGuardado.id}/insumos`, {
                 method: 'POST',
@@ -398,7 +392,6 @@ async function saveChanges() {
             codigoNegocio
         }));
         
-        // Solo agregar imagen si se seleccionó una nueva
         if (imagen) {
             formData.append('imagen', imagen);
         }
@@ -487,7 +480,6 @@ function renderTable(category = 'all') {
     tableBody.innerHTML = filteredProducts.map(producto => {
         if (!producto?.nombre) return '';
         
-        // Procesar imagen
         let imagenUrl = '/HTML/Imagenes/ejemplo.png';
         if (producto.imagen) {
             if (typeof producto.imagen === 'string') {
@@ -616,11 +608,9 @@ function limpiarBusqueda() {
     renderTable(currentCategory);
 }
 
-// Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     cargarProductos();
     
-    // Categorías
     document.querySelectorAll('.category-btn').forEach((btn, index) => {
         const categories = ['snack', 'alimentos', 'bebidas'];
         btn.addEventListener('click', () => {
@@ -632,7 +622,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Búsqueda
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
         searchInput.addEventListener('input', buscarProductosPorNombre);
@@ -641,7 +630,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Vista previa de imágenes
     const productImageInput = document.getElementById('productImage');
     if (productImageInput) {
         productImageInput.addEventListener('change', () => handleImagePreview('productImage', 'imagePreview'));
@@ -652,7 +640,6 @@ document.addEventListener('DOMContentLoaded', () => {
         editImageInput.addEventListener('change', () => handleImagePreview('editImage', 'editImagePreview'));
     }
     
-    // Cerrar modales al hacer clic fuera
     document.querySelectorAll('.modal-overlay').forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
